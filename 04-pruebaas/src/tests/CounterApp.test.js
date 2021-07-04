@@ -5,10 +5,15 @@ import '@testing-library/jest-dom';
 import CounterApp from  "../CounterApp";
 
 describe('Debe de mostrar el CounterApp', () => {
+    let Wrapper;
+
+    beforeEach(() => {
+        Wrapper = shallow( <CounterApp />);
+    })
 
     test('Valores por Defecto', () => {
         // const saludo = 'Hola soy goku';
-        const Wrapper = shallow( <CounterApp />)
+       
 
         expect( Wrapper).toMatchSnapshot();
     });
@@ -17,14 +22,42 @@ describe('Debe de mostrar el CounterApp', () => {
         
         const valors = '100';
 
-        const wrapper = shallow(
+        const Wrapper = shallow(
                 <CounterApp 
                   value = { valors }
                 />);
-        const conteeValors = wrapper.find('h2').text().trim();
+        const conteeValors = Wrapper.find('h2').text().trim();
 
         expect(conteeValors).toBe(valors);
 
     })
     
+    test('Debe de incrementar el valor del boton +1', () => {
+        
+        Wrapper.find('button').at(0).simulate('click');
+        const conteeValors = Wrapper.find('h2').text().trim();
+
+        expect(conteeValors).toBe('11');
+
+    })
+
+    test('Debe de incrementar el valor del boton -1', () => {
+        
+        Wrapper.find('button').at(2).simulate('click');
+        const conteeValors = Wrapper.find('h2').text().trim();
+
+        expect(conteeValors).toBe('9');
+
+    })
+
+    test('Debe de incrementar el valor del boton default', () => {
+        
+        Wrapper.find('button').at(1).simulate('click');
+        const conteeValors = Wrapper.find('h2').text().trim();
+
+        expect(conteeValors).toBe('10');
+
+    })
+
+
 });
