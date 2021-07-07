@@ -1,16 +1,26 @@
-import React from 'react'
+import React  from 'react'
+import { useFetchGifs } from '../hooks/useFetchGifs'
 
-export const GifGrid = ({category}) => {
+ import { GifGridItem } from './GifGridItem'
+
+
+export const GifGrid = ( { category } ) => {
    
-    const getGif = () => {
+    const { data: images , loading} = useFetchGifs( category );
 
-        const url = 'api.giphy.com/v1/gifs/search?q=molotov&limit=10&api_key=GHgZQdqpRTEGzf8fzjkIXul7DwP2krj1';
-
-    }
-   
     return (
-        <div>
-            <li key = { category }> { category } </li>
+        <>
+        <h3 className="animate__animated animate__fadeIn"> { category }</h3>
+        { loading && <p className="animate__animated animate__flash">Loading..</p> }
+        <div className="cards-grid">              
+              {
+                  images.map( img => (
+                    <GifGridItem 
+                    key={img.id }
+                    { ...img } />
+                  ))
+              }
         </div>
+        </>
     )
 }
