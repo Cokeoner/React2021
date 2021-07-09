@@ -1,0 +1,10 @@
+{
+    "path-intellisense.mappings": {
+        "folders": [],
+  "settings": {},
+  "[javascript]": {
+    "editor.formatOnSave": true
+  }
+    },
+    "php.validate.executablePath": ""
+}
